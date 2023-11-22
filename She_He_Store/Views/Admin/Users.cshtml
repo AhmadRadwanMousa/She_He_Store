@@ -1,0 +1,58 @@
+﻿@model IEnumerable<User>
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Users</h2>
+
+
+<div class="card">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    UserId
+                                </th>
+                                <th>
+                                    User Name
+                                </th>
+                                <th>
+                                    Profile Picture
+                                </th>
+                                <th>
+                                    Gender
+                                </th>
+                                <th class="text-center">
+                                    Date of Birth
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tbody>
+                                @foreach (User user in Model)
+                                {
+                                <tr>
+                                    <td>@user.Userid</td>
+                                    <td>@user.Fname @user.Lname </td>
+                                    <td><img src="~/Images/@user.Profilepicture" style="width:100px;height:100px" /> </td>
+                                    <td>
+                                            @user.Gender
+                                    </td>
+                                    <td class="text-center">
+                                        @user.Dateofbirth
+                                    </td>
+                                </tr>
+                                }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

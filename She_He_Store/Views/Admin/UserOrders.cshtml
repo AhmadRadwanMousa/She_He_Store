@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Order>
+@{
+    ViewData["Title"] = "UserOrders";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>UserOrders</h2>
+
+<div class="card">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Order ID
+                                </th>
+                                <th>
+                                   User ID
+                                </th>
+                             
+                                <th>
+                                  OrderDate
+                                </th>
+                                <th>
+                                    Payment ID
+                                </th>
+                                <th>
+                                    Order State
+                                </th>
+                                <th class="text-center">
+                                    Accept/Reject
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tbody>
+                                @foreach (Order order in Model)
+                                {
+                                <tr>
+                                    <td>@order.Orderid</td>
+                                    <td>@order.Userid</td>
+                                      
+                                    <td>
+                                        @order.Orderdate
+                                    </td>
+                                    <td>
+                                            @order.Paymentid
+                                    </td>
+                                        @if (order.Orderstatus == "Accepted")
+                                        {
+                                        <td><h6 class="text-success ">@order.Orderstatus</h6></td>
+                                        }
+                                        else if (order.Orderstatus == "Shipped")
+                                        {
+                                        <td><h6 class="text-info ">@order.Orderstatus</h6></td>
+                                        }
+                                        else if (order.Orderstatus == "Delivered")
+                                        {
+                                            <td><h6 class="text-warning">@order.Orderstatus</h6></td>
+                                        }
+                                        else
+                                        {
+                                        <td><h6 class="text-danger">@order.Orderstatus</h6></td>
+
+                                        }
+
+                                    <td class="text-center">
+                                        <a asp-action="ChangeOrderState" asp-controller="Admin" asp-route-orderId="@order.Orderid" asp-route-orderState="Accepted" class="btn btn-success">Accepted <i class="fa-regular fa-circle-check"></i></a> |
+                                        <a asp-action="ChangeOrderState" asp-controller="Admin" asp-route-orderId="@order.Orderid" asp-route-orderState="Shipped" class="btn btn-info">Shipped  <i class="fa-solid fa-truck fa-bounce"></i></a> |
+                                        <a asp-action="ChangeOrderState" asp-controller="Admin" asp-route-orderId="@order.Orderid" asp-route-orderState="Delivered" class="btn btn-warning">Delivered <i class="fa-solid fa-user-check"></i></a> |
+                                        <a asp-action="ChangeOrderState" asp-controller="Admin" asp-route-orderId="@order.Orderid" asp-route-orderState="Rejected" class="btn btn-danger">Rejected <i class="fa-regular fa-circle-xmark"></i></a> |
+                                    </td>
+                                </tr>
+                                }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

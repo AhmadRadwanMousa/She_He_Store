@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Role>
+@{
+    ViewData["Title"] = "Roles";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Roles</h2>
+
+<div class="card">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    RoleID
+                                </th>
+                                <th>
+                                    Role Name
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tbody>
+                                @foreach (Role role in Model)
+                                {
+                                <tr>
+                                    <td>@role.Roleid</td>
+                                    <td>@role.Rolename </td>
+                                </tr>
+                                }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

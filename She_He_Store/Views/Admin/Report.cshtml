@@ -1,0 +1,169 @@
+﻿@model Tuple<IEnumerable<Product>, IEnumerable<OrderViewModel>>
+@{
+    ViewData["Title"] = "Report";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    table.dataTable tbody tr{
+        background-color:transparent;
+    }
+
+    .dataTables_wrapper label{
+        color:white;
+    }
+
+    button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disabled), [type="submit"]:not(:disabled) {
+       background-color:white;
+   }
+
+    .navbar .navbar-menu-wrapper .navbar-toggler {
+        background-color:transparent;
+    }
+</style>
+
+<h2>Products</h2>
+<div class="card" style="">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table" id="productTable">
+                        <thead>
+                            <tr>
+                                <th class="text-center">
+                                    Product Image
+                                </th >
+                                <th class="text-center">
+                                    Product Name 
+                                </th>
+                                <th class="text-center">
+                                   Category
+                                </th>
+                                <th class="text-center">
+                                   Product Price
+                                </th>
+                               
+                                <th class="text-center">
+                                    Product Sale
+                                </th>
+                                <th class="text-center">
+                                    Adding Date
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                @foreach (Product product in Model.Item1)
+                                {
+                                <tr>
+                <td class="text-center" ><img src="~/Images/@product.Productpicture" style="width:100px;height:100px;border-radius:20px" /></td>
+                <td class="text-center">@product.Productname</td>
+                                    <td class="text-center">@product.Category.Categoryname</td>
+                                    <td class="text-center">@product.Productprice$</td>
+                                    <td class="text-center">@product.Sale% </td>
+                                    <td class="text-center">@product.Addingdate</td>
+                                </tr>
+                                }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+<br />
+<br />
+<h2>Orders</h2>
+<div class="card" style="">
+  
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table" id="orderTable">
+                        <thead>
+                            <tr>
+                                <th class="text-center">
+                                    Customer Name
+                                </th>
+                                <th class="text-center">
+                                    Order ID
+                                </th>
+                                <th >
+                                    Order Details
+                                </th>
+                             
+                                <th class="text-center">
+                                    Order Statues
+                                </th>
+                                <th class="text-center">
+                                    Order Total
+                                </th>
+                            </tr>
+                        </thead>
+                     
+                        <tbody>
+                                @foreach (var order in Model.Item2)
+                                {
+                                <tr>
+                                    <td class="text-center"> @order.Order.User.Fname @order.Order.User.Lname</td>
+                                    <td class="text-center">@order.Order.Orderid</td>
+
+                                    <td>
+                                            @foreach (var item in order.OrderItems)
+                                            {
+                                            <table class="table">
+                                                <tr>
+                                                    <td rowspan="4" >
+                                                        Product Name: @item.Product.Productname <br>
+                                                        <br />
+                                                        Quantity: @item.OrderItem.Quantity X <br>
+                                                        <br />
+                                                        Price: @item.Product.Productprice$ <br>
+                                                        <br />
+                                                        Total: @item.OrderItem.Totalprice$
+                                                    </td>
+                                                    <td class="text-center"  > <img src="~/Images/@item.Product.Productpicture" style="width:100px;height:100px;border-radius:20px" /> </td>
+                                                </tr>
+                                            </table>
+                                            }
+                                    </td>
+                                    <td class="text-center">
+                                            @if (order.Order.Orderstatus == "Accepted")
+                                            {
+                                            <div class="badge badge-outline-success">@order.Order.Orderstatus</div>
+                                            }
+                                            else if (order.Order.Orderstatus == "Rejected")
+                                            {
+                                            <div class="badge badge-outline-danger">@order.Order.Orderstatus</div>
+
+                                            }
+                                            else if (order.Order.Orderstatus == "Shipped")
+                                            {
+                                            <div class="badge badge-outline-info">@order.Order.Orderstatus</div>
+
+                                            }
+                                            else if (order.Order.Orderstatus == "Delivered")
+                                            {
+                                            <div class="badge badge-outline-primary">@order.Order.Orderstatus</div>
+
+                                            }
+                                            else if (order.Order.Orderstatus == "Pending")
+                                            {
+                                            <div class="badge badge-outline-warning">@order.Order.Orderstatus</div>
+
+                                            }
+                                    </td>
+                                    <td class="text-center">@order.Order.Totalamount$</td>
+
+                                </tr>
+                                }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+</div>
+</div>
+

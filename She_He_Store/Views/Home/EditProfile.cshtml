@@ -1,0 +1,100 @@
+﻿@model User
+@{
+    ViewData["Title"] = "EditProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="section" id="section">
+    <div class="conainter-fluid">
+        <div class="row" style="padding:0;margin:0">
+        <div class="col-md-12">
+            <div class="section-title">
+                <h3 class="title">Edit Profile</h3>
+            </div>
+        </div>
+        </div>
+        <div class="row" style="padding:0;margin:0">
+        <div class="col-md-9">
+            <form enctype="multipart/form-data"method="post" action="EditProfile" style="display:flex;justify-content:center;align-items:center;gap:3rem;">
+                    <div>
+                <div class="form-group">
+                    <label asp-for="@Model.Fname"  style="padding-bottom:1rem" ></label>
+                        <input asp-for="@Model.Fname" class="input" placeholder="First Name" required />
+                </div>
+                <div class="form-group">
+                        <label asp-for="@Model.Lname" style="padding-bottom:1rem" ></label>
+                            <input asp-for="@Model.Lname" class="input" placeholder="Last Name" required />
+                </div>
+                <div class="form-group">
+                        <label asp-for="@Model.Phonenumber" style="padding-bottom:1rem" ></label>
+                        <input asp-for="@Model.Phonenumber" class="input" placeholder="Phone Number" required />
+                </div>
+                    </div>
+                    <div>
+                 <div class="form-group">
+                        <label asp-for="@Model.Country" style="padding-bottom:1rem" ></label>
+                            <input asp-for="@Model.Country" class="input" placeholder="Country" required />
+                </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.City" style="padding-bottom:1rem"></label>
+                            <input asp-for="@Model.City" class="input" placeholder="City" required />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Postalcode" style="padding-bottom:1rem"></label>
+                            <input asp-for="@Model.Postalcode" class="input" placeholder="Postalcode" required />
+                    </div>
+                        </div>
+                    <div>
+                <div class="form-group">
+                        <label asp-for="@Model.ImageFile" style="padding-bottom:1rem" ></label>
+                        <input asp-for="@Model.ImageFile" class="input" placeholder="ImageFile" required />
+                </div>
+                    <div class="form-group">
+                        <label for="Password" style="padding-bottom:1rem" >Password</label>
+                            <input type="hidden" asp-for="Gender" />
+                        <input name="Password" class="input" placeholder="New Password" type="password"  value="@ViewBag.password"/>
+                            <input type="hidden" asp-for="Userid" />
+                            <div class="text-center" style="margin-top:4rem">
+                       <button class="primary-btn " style="width:50%;">Save </button>
+                            </div>
+                    </div>
+                    </div>
+        </form>
+        </div>
+
+            <div class="col-md-3"><img src="~/Images/@Model.Profilepicture" width="300" height="300" style="border-radius:2rem"/> </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="SuccessfullyModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Profile updated successfully</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center" style="display:flex;flex-direction:column;justify-content:center;align-items:center;">
+                <img src="~/Assets/img/icons8-success-400.png" width="150" height="150" />
+                your profile has been updated succesfully !
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.Updated == "true")
+{
+    <text>
+        <script>
+            // Your JavaScript code here
+            setTimeout(function () {
+                $('#SuccessfullyModel').modal('show');
+            }, 200);
+        </script>
+    </text>
+}

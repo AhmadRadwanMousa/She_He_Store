@@ -1,0 +1,305 @@
+﻿@model IEnumerable<Category>
+@{
+    ViewData["Title"] = "HomePage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<!-- shop -->
+			@foreach (var category in Model)
+			{
+			<div class="col-md-4 col-xs-6">
+				<div class="shop">
+					<div class="shop-img">
+						<img src="~/Images/@category.Categorypicture" height="400" class="img-fluid" style="object-fit:contain">
+					</div>
+					<div class="shop-body">
+						<h3>@category.Categoryname<br>Collection</h3>
+							<a asp-controller="Home" asp-action="ProductsByCategory" asp-route-categoryName="@category.Categoryname" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+					</div>
+				</div>
+			</div>
+			}
+			<!-- /shop -->
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+
+<!-- SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+
+			<!-- section title -->
+			<div class="col-md-12">
+				<div class="section-title">
+					<h3 class="title">New Products</h3>
+					<div class="section-nav">
+						<ul class="section-tab-nav tab-nav">
+							@foreach (var category in Model)
+							{
+								<li class="active"><a class="category-link" asp-action="FindByCategory" asp-controller="Home" asp-route-categoryName="@category.Categoryname">@category.Categoryname</a></li>
+							}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- /section title -->
+			<!-- Products tab & slick -->
+			<div>
+			<div class="col-md-12" id="product-container">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="products-tabs">
+								<!-- tab -->
+								<div id="tab1" class="tab-pane active">
+									
+									@if (ViewBag.empty==true)
+									{
+										<div class="text-danger text-center" style="width:100%;height:100%;font-size:35px;">No data has been found :(</div>
+									}
+									else
+									{
+									<div class="products-slick" data-nav="#slick-nav-1">
+									@foreach (Product product in ViewBag.ItemsByCategory)
+									{
+										<div class="product">
+											<div class="product-img">
+												<img src="~/Images/@product.Productpicture" height="250">
+												<div class="product-label">
+															@if (product.Sale >0)
+															{
+																<span class="sale">-@product.Sale%</span>
+															
+															}
+																<span class="new">NEW</span>
+														</div>
+											</div>
+											<div class="product-body">
+												<p class="product-category">@product.Category.Categoryname</p>
+														<h3 class="product-name" >
+															<a href="#" class="">@product.Productname</a>
+														</h3>
+												<h4 class="product-price">$@(product.Productprice - (@product.Sale / 100 * product.Productprice))<del class="product-old-price">$@product.Productprice</del></h4>
+												<div class="product-rating">
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star"></i>
+												</div>
+												<div class="product-btns">
+												    <button class="add-to-wishlist"><a asp-action="AddToWishList" asp-controller="WishList" asp-route-productId="@product.Productid" asp-route-categoryName="@product.Category.Categoryname"><i class="fa fa-heart-o"></i></a><span class="tooltipp">add to wishlist</span></button>
+													<button class="add-to-compare"> <i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+													<button class="quick-view"> <a asp-action="ProductById" asp-controller="Home" asp-route-productId="@product.Productid" asp-route-categoryName="@product.Category.Categoryname"><i class="fa-solid fa-eye"></i></a><span class="tooltipp">quick view</span></button>
+												</div>
+											</div>
+											<div class="add-to-cart">
+											<a asp-action="AddToCart" asp-controller="ShoppingCart" asp-route-productId="@product.Productid" asp-route-categoryName="@product.Category.Categoryname"><button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button></a>
+											</div>
+										</div>
+									}
+
+										</div>
+											<div id="slick-nav-1" class="products-slick-nav"></div>
+									}
+							</div>
+						</div>
+					</div>
+			</div>
+			<!-- Products tab & slick -->
+			</div>
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+</div>
+<!-- /SECTION -->
+<!-- HOT DEAL SECTION -->
+
+
+<div id="hot-deal" class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hot-deal">
+					<ul class="hot-deal-countdown">
+						<li>
+							<div>
+								<h3>02</h3>
+								<span>Days</span>
+							</div>
+						</li>
+						<li>
+							<div>
+								<h3>10</h3>
+								<span>Hours</span>
+							</div>
+						</li>
+						<li>
+							<div>
+								<h3>34</h3>
+								<span>Mins</span>
+							</div>
+						</li>
+						<li>
+							<div>
+								<h3>60</h3>
+								<span>Secs</span>
+							</div>
+						</li>
+					</ul>
+					<h2 class="text-uppercase">hot deal this week</h2>
+					<p>New Collection Up to 50% OFF</p>
+					<a class="primary-btn cta-btn" href="#">Shop now</a>
+				</div>
+			</div>
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /HOT DEAL SECTION -->
+<!-- SECTION -->
+
+<!-- /SECTION -->
+<!-- SECTION -->
+<div class="section">
+	<div class="container">
+		<div class="row">
+			<!-- section title -->
+			<div class="col-md-12">
+				<div class="section-title">
+					<h3 class="title">Testimonails</h3>
+				</div>
+			</div>
+			<div class="col-md-12">
+                <div class="row" style="display:flex;gap:3rem;flex-wrap:wrap;justify-content:center;align-items:center;">
+			
+					@if (ViewBag.Testimonails.Count == 0)
+					{
+						<div class="col-md-12 text-center">
+							<h2>No Testimonails yet !</h2>
+						</div>
+					}
+					else
+					{
+						@foreach (Testimonial testimonial in ViewBag.Testimonails)
+						{
+							<div class="col-md-3 testimonails" >
+								<div class="card">
+									<div class="view overlay text-center">
+										<img class="card-img-top" width="170" height="170" style="border-radius:50%" src="~/Images/@testimonial.User.Profilepicture">
+									</div>
+
+									<!-- Card content -->
+									<div class="card-body">
+
+										<!-- Title -->
+										<h4 class="card-title text-center">@testimonial.Username</h4>
+										<!-- Text -->
+										<p class="card-text text-center">
+											@testimonial.Testimonialcomment
+										</p>
+									</div>
+
+								</div>
+								<!-- Card -->
+
+							</div>
+						}
+							
+								}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="section" style="padding-bottom:0px">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+
+			<!-- section title -->
+			<div class="col-md-12">
+				<div class="section-title">
+					<h3 class="title">Our Brands</h3>
+				</div>
+			</div>
+			<!-- /section title -->
+
+			<div class="col-md-12">
+				<div class="row">
+					<div class="products-tabs">
+						<!-- tab -->
+						<div id="tab1" class="tab-pane active">
+							<div class="products-slick" data-nav="#slick-nav-1">
+								<div>
+									<div class="brand-card">
+										<img src="~/Images/dell-logo-dell-icon-free-free-vector.jpg" width="100" height="100" style="object-fit:contain" />
+									</div>
+								</div>
+								<div>
+									<div class="brand-card">
+										<img src="~/Images/Apple-Logo-PNG12.png" alt="" width="100" height="100" style="object-fit:contain" />
+									</div>
+								</div>
+								<div>
+									<div class="brand-card">
+										<img src="~/Images/Samsung-Logo-PNG1.png" alt="" width="100" height="100" style="object-fit:contain" />
+									</div>
+								</div>
+								<div>
+									<div class="brand-card">
+										<img src="~/Images/PlayStation-Logo-PNG4.png" alt="" width="100" height="100" style="object-fit:contain" />
+									</div>
+								</div>
+								<div>
+									<div class="brand-card">
+										<img src="~/Images/HP_(3).png" alt="" width="100" height="100" style="object-fit:contain" />
+									</div>
+								</div>
+								<div>
+									<div class="brand-card">
+										<img src="~/Images/Steam-Logo-PNG2.png" alt="" width="100" height="100" style="object-fit:contain" />
+									</div>
+								</div>
+								<div>
+									<div class="brand-card">
+										<img src="~/Images/MSI_(6).png" alt="" width="100" height="100" style="object-fit:contain" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+
+<!-- /SECTION -->
+<!-- NEWSLETTER -->
+<script>
+	setTimeout(() => {
+		const containerElement = document.getElementById('product-container');
+		containerElement.scrollIntoView({ behavior: 'smooth' });
+	}, 500);
+</script>
+

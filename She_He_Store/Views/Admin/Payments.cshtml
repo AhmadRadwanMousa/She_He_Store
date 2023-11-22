@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "Payments";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Payments</h2>
+<div class="card">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Payment ID
+                                </th>
+                                <th>
+                                   User ID
+                                </th>
+                                <th>
+                                    Payment Date
+                                </th>
+                                <th>
+                                   Card ID
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tbody>
+                                @foreach (Payment payment in Model)
+                                {
+                                <tr>
+                                    <td>@payment.Paymentid</td>
+                                    <td>@payment.Userid </td>
+                                    <td>
+                                        @payment.Paymentdate
+                                    </td>
+                                    <td>
+                                        @payment.Cardid
+                                    </td>
+                                </tr>
+                                }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

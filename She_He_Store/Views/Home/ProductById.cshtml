@@ -1,0 +1,384 @@
+﻿@model Tuple<Product,IEnumerable<Product>,IEnumerable<Review>>
+@{
+    ViewData["Title"] = "ProductById";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    int? userId = Context.Items["UserId"] as int?;
+    string fname = Context.Items["Fname"] as string;
+}
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- Product main img -->
+            <div class="col-md-5 col-md-push-2">
+                <div id="product-main-img">
+                    <div class="product-preview">
+                        <img src="~/Images/@Model.Item1.Productpicture" alt="">
+                    </div>
+                </div>
+            </div>
+            <!-- /Product main img -->
+            <!-- Product thumb imgs -->
+            <div class="col-md-2  col-md-pull-5">
+                <div id="product-imgs">
+                    <div class="product-preview">
+                        <img src="~/Images/@Model.Item1.Productpicture" alt="">
+                    </div>
+                </div>
+            </div>
+            <!-- /Product thumb imgs -->
+            <!-- Product details -->
+            <div class="col-md-5">
+                <div class="product-details">
+                    <h2 class="product-name">@Model.Item1.Productname</h2>
+                    <div>
+                        <div class="product-rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                        </div>
+                        <a class="review-link" href="#">@Model.Item3.Count() Review(s) | Add your review</a>
+                    </div>
+                    <div>
+                        <h3 class="product-price">$@(Model.Item1.Productprice - (Model.Item1.Sale / 100 * Model.Item1.Productprice)) <del class="product-old-price">$@Model.Item1.Productprice</del></h3>
+
+                        @if (@Model.Item1.Isavaliable == true)
+                        {
+                            <span class="product-available">IN STOCK</span>
+                        }
+                        else
+                        {
+                            <span class="product-available">OUT OF STOCK</span>
+                        }
+
+                    </div>
+                    <h4 style="line-height:4rem;">@Model.Item1.Description</h4>
+
+                    <form asp-action="AddToCart" asp-controller="ShoppingCart" asp-route-productId="@Model.Item1.Productid">
+                        <div class="add-to-cart">
+                            <div class="qty-label">
+                                Qty
+                                <div class="input-number">
+                                    <input type="number" name="quantity" value="1" min="1">
+                                    <span class="qty-up">+</span>
+                                    <span class="qty-down">-</span>
+                                </div>
+                            </div>
+                            <button type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                        </div>
+                    </form>
+
+                    <ul class="product-btns">
+                        <li><a asp-action="AddToWishList" asp-controller="WishList" asp-route-productId="@Model.Item1.Productid" asp-route-categoryName="@Model.Item1.Category.Categoryname"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
+                    </ul>
+
+                    <ul class="product-links">
+                        <li>Category:</li>
+                        <li><a href="#">@Model.Item1.Category.Categoryname</a></li>
+                    </ul>
+
+                    <ul class="product-links">
+                        <li>Share:</li>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#"><i class="fa fa-envelope"></i></a></li>
+                    </ul>
+
+                </div>
+            </div>
+            <!-- /Product details -->
+            <!-- Product tab -->
+            <div class="col-md-12">
+                <div id="product-tab">
+                    <!-- product tab nav -->
+                    <ul class="tab-nav">
+                        <li class="active"><a data-toggle="tab" href="#tab1">Details</a></li>
+                        <li><a data-toggle="tab" href="#tab3">Reviews (@Model.Item3.Count())</a></li>
+                    </ul>
+                    <!-- /product tab nav -->
+                    <!-- product tab content -->
+                    <div class="tab-content">
+                        <!-- tab1  -->
+                        <div id="tab1" class="tab-pane fade in active">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="text-center">@Model.Item1.Productdetails</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /tab1  -->
+                        <!-- tab2  -->
+                       
+                        <!-- /tab2  -->
+                        <!-- tab3  -->
+                        <div id="tab3" class="tab-pane fade in">
+                            <div class="row">
+                                <!-- Rating -->
+                                <div class="col-md-3">
+                                    <div id="rating">
+                                        <div class="rating-avg">
+                                            <span>4.5</span>
+                                            <div class="rating-stars">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o"></i>
+                                            </div>
+                                        </div>
+                                        <ul class="rating">
+                                            <li>
+                                                <div class="rating-stars">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                                <div class="rating-progress">
+                                                    <div style="width: 80%;"></div>
+                                                </div>
+                                                <span class="sum">5</span>
+                                            </li>
+                                            <li>
+                                                <div class="rating-stars">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                                <div class="rating-progress">
+                                                    <div style="width: 60%;"></div>
+                                                </div>
+                                                <span class="sum">4</span>
+                                            </li>
+                                            <li>
+                                                <div class="rating-stars">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                                <div class="rating-progress">
+                                                    <div></div>
+                                                </div>
+                                                <span class="sum">3</span>
+                                            </li>
+                                            <li>
+                                                <div class="rating-stars">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                                <div class="rating-progress">
+                                                    <div></div>
+                                                </div>
+                                                <span class="sum">2</span>
+                                            </li>
+                                            <li>
+                                                <div class="rating-stars">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                                <div class="rating-progress">
+                                                    <div></div>
+                                                </div>
+                                                <span class="sum">1</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- /Rating -->
+                                <!-- Reviews -->
+                                <div class="col-md-6">
+                                    <div id="reviews">
+                                        @if (Model.Item3.Count() == 0)
+                                        {
+                                            <h1 class="text-center">No Reviews Yet</h1>
+                                        }
+                                        else
+                                        {
+                                            <ul class="reviews">
+                                                @foreach (Review review in Model.Item3)
+                                                {
+                                                    <li>
+                                                        <div class="review-heading">
+                                                            <h5 class="name">@review.Username</h5>
+                                                            <p class="date">@review.Reviewat</p>
+                                                            @*<p class="date">27 DEC 2018, 8:0 PM</p>*@
+                                                            <div class="review-rating">
+                                                                @for (int i = 0; i < review.Rating; i++)
+                                                                {
+                                                                    <i class="fa fa-star"></i>
+                                                                    //<i class="fa fa-star-o empty"></i>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="review-body">
+                                                            <p>@review.Reviewcomment</p>
+                                                        </div>
+                                                    </li>
+                                                }
+                                            </ul>
+                                            <ul class="reviews-pagination">
+                                                <li class="active">1</li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#">4</a></li>
+                                                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                            </ul>
+                                        }
+                                        
+                                    </div>
+                                </div>
+                                <!-- /Reviews -->
+                                <!-- Review Form -->
+                                <div class="col-md-3">
+                                    <div id="review-form">
+                                        <form class="review-form" action="@Url.Action("AddReview","ReviewsAndTestimonails")" method="post">
+                                            <input class="input" type="text" name="userName" placeholder="Your Name" required>
+                                            <textarea class="input" name="reviewComment" placeholder="Your Review"required ></textarea>
+                                            <input type="hidden" name="productId" value="@Model.Item1.Productid" />
+                                            <input type="hidden" name="categoryName" value="@Model.Item1.Category.Categoryname" />
+                                            <div class="input-rating">
+                                                <span>Your Rating: </span>
+                                                <div class="stars">
+                                                    <input id="star5" name="rating" value=5 type="radio"><label for="star5"></label>
+                                                    <input id="star4" name="rating" value=4 type="radio"><label for="star4"></label>
+                                                    <input id="star3" name="rating" value=3 type="radio"><label for="star3"></label>
+                                                    <input id="star2" name="rating" value=2 type="radio"><label for="star2"></label>
+                                                    <input id="star1" name="rating" value=1 type="radio"><label for="star1"></label>
+                                                </div>
+                                            </div>
+                                            <button class="primary-btn" >Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- /Review Form -->
+                            </div>
+                        </div>
+                        <!-- /tab3  -->
+                    </div>
+                    <!-- /product tab content  -->
+                </div>
+            </div>
+            <!-- /product tab -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+<!-- Section -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Not signed in yet!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                You need to sign in first so you can buy the products you need on our website and add Reviews and testimonails.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a type="button" class="btn btn-danger" asp-action="LoginAndRegisterPage" asp-controller="LoginAndRegister">Sign in</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="section-title text-center">
+                    <h3 class="title">Related Products</h3>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="products-tabs">
+                        <!-- tab -->
+                        <div id="tab1" class="tab-pane active">
+                            <div class="products-slick" data-nav="#slick-nav-1">
+                                @foreach (Product product in Model.Item2)
+                                {
+                                    <div class="col-md-3 col-xs-6">
+                                        <div class="product">
+                                            <div class="product-img">
+                                                <img src="~/Images/@product.Productpicture" alt="" height="250">
+                                                <div class="product-label">
+                                                    @if (product.Sale > 0)
+                                                    {
+                                                        <span class="sale">-@product.Sale%</span>
+                                                    }
+                                                    <span class="new">NEW</span>
+                                                </div>
+                                            </div>
+                                            <div class="product-body">
+                                                <p class="product-category">@product.Category.Categoryname</p>
+                                                <h3 class="product-name"><a href="#">@product.Productname</a></h3>
+                                                <h4 class="product-price">$@(product.Productprice - (product.Sale / 100 * product.Productprice)) <del class="product-old-price">$@product.Productprice</del></h4>
+                                                <div class="product-rating">
+                                                </div>
+                                                <div class="product-btns">
+                                                    <button class="add-to-wishlist"><a asp-action="AddToWishList" asp-controller="WishList" asp-route-productId="@product.Productid" asp-route-categoryName="@product.Category.Categoryname"><i class="fa fa-heart-o"></i></a><span class="tooltipp">add to wishlist</span></button>
+                                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+                                                    <button class="quick-view"><a asp-action="ProductById" asp-controller="Home" asp-route-productId="@product.Productid" asp-route-categoryName="@product.Category.Categoryname"><i class="fa-solid fa-eye"></i> </a></button>
+                                                </div>
+                                            </div>
+                                            <div class="add-to-cart">
+                                                <a asp-action="AddToCart" asp-controller="ShoppingCart" asp-route-productId="@product.Productid" asp-route-categoryName="@product.Category.Categoryname"><button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                <div id="slick-nav-1" class="products-slick-nav"></div>
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /Section -->
+@if (ViewBag.SignIn == "false")
+{
+    <text>
+        <script>
+            // Your JavaScript code here
+            setTimeout(function () {
+                $('#exampleModal').modal('show');
+            }, 200);
+        </script>
+    </text>
+
+}

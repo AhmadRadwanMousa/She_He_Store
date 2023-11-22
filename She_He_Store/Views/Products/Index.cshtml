@@ -1,0 +1,82 @@
+﻿@model IEnumerable<She_He_Store.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Products</h2>
+
+<p>
+    <a asp-action="Create">Create New Product</a>
+</p>
+<div class="container-fluid">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Category Table</h4>
+                <p class="card-description">
+
+                </p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Product Name
+                                </th>
+                                <th>
+                                   Category
+                                </th>
+                                <th>
+                                  Product Price
+                                </th>
+                             
+                                <th>
+                                   Stock Quantity
+                                </th>
+
+                                <th class="text-center">
+                                    Product Picture
+                                </th>
+                                <th class="text-center">
+                                    Edit/Delete
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                        @Html.DisplayFor(modelItem => item.Productname)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Category.Categoryname)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Productprice)$
+                                    </td>
+                                    <td class="text-center">
+                                        @Html.DisplayFor(modelItem => item.Stockquantity)
+                                    </td>
+
+
+                                    <td>
+                                        <img src="~/Images/@item.Productpicture" style="width: 150px; height: 140px; border-radius:1.5rem" class="img-fluid" />
+                                    </td>
+
+                                    <td>
+                                        <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.Productid">Edit <i class="fa-regular fa-pen-to-square"></i></a> |
+                                        <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.Productid">Details <i class="fa-solid fa-circle-info"></i></a> |
+                                        <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Productid">Delete <i class="fa-solid fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

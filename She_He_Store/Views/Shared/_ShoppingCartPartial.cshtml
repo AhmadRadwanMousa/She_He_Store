@@ -1,0 +1,157 @@
+﻿
+@if (ViewBag.ordersCount != 0)
+{
+	<div>
+		<a asp-action="Orders" asp-controller="Home">
+			<i class="fa-solid fa-truck fa-bounce"></i>
+			<span>Orders</span>
+			<div class="qty">@ViewBag.ordersCount</div>
+		</a>
+	</div>
+}
+@if (ViewBag.emptyWishList == "true")
+{
+	<div>
+		<a>
+			<i class="fa fa-heart-o"></i>
+			<span>WishList</span>
+			<div class="qty">0</div>
+		</a>
+	</div>
+}
+else
+{
+	int wishListCount = ViewBag.wishListItems.Count;
+
+	decimal wishListTotal = ViewBag.wishListTotal;
+
+	<div class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+			<i class="fa fa-heart-o"></i>
+			<span>Your Wishlist</span>
+			<div class="qty">@wishListCount</div>
+		</a>
+		<div class="cart-dropdown">
+			<div class="cart-list">
+				@foreach (Wishlist item in ViewBag.wishListItems)
+				{
+					<div class="product-widget">
+						<div class="product-img">
+							<img src="~/Images/@item.Product.Productpicture" alt="">
+						</div>
+						<div class="product-body">
+							<h3 class="product-name"><a href="#">@item.Product.Productname</a></h3>
+							<h4 class="product-price">
+							   $@(item.Product.Productprice - (@item.Product.Sale / 100 * item.Product.Productprice))
+								<del class="product-old-price">$@item.Product.Productprice</del>
+							</h4>
+						</div>
+						<button class="delete" id="deleteWishList" data-wishlistId="@item.Wishlistid"><i class="fa fa-close"></i></button>
+					</div>
+				}
+
+			</div>
+			<div class="cart-summary">
+				<small>@wishListCount Item(s) selected</small>
+				<h5>SUBTOTAL: @wishListTotal  </h5>
+			</div>
+			<div class="cart-btns">
+				<a asp-action="CheckoutPage" asp-controller="Home" style="width:100%">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+		</div>
+	</div>
+
+}
+
+
+@if (ViewBag.emptyCart=="true"){
+<div>
+	<a asp-action="ProductsByCategory" asp-controller="Home">
+			<i class="fa fa-shopping-cart"></i>
+		<span>Add Items</span>
+		<div class="qty">0</div>
+	</a>
+	</div>
+}
+else
+{
+	int itemsCount =ViewBag.orderItems.Count;
+	decimal totalSum = ViewBag.totalprice;
+	<div class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+			<i class="fa fa-shopping-cart"></i>
+			<span>Your Cart</span>
+			<div class="qty">@itemsCount</div>
+		</a>
+		<div class="cart-dropdown">
+			<div class="cart-list">
+				@foreach (Orderitem item in ViewBag.orderItems)
+				{
+					<div class="product-widget">
+						<div class="product-img">
+							<img src="~/Images/@item.Product.Productpicture" alt="">
+						</div>
+						<div class="product-body">
+							<h3 class="product-name"><a href="#">@item.Product.Productname</a></h3>
+							<h4 class="product-price">
+								<span class="qty">@item.Quantity X</span>$@(item.Product.Productprice - (@item.Product.Sale / 100 * item.Product.Productprice))
+								<del class="product-old-price">$@item.Product.Productprice></del>
+							</h4>
+						</div>
+						<button class="delete" id="deleteOrderItem" data-orderItemId="@item.Orderitemid"><i class="fa fa-close"></i></button>
+					</div>
+				}
+
+			</div>
+			<div class="cart-summary">
+				<small>@itemsCount Item(s) selected</small>
+				<h5>SUBTOTAL: $@totalSum </h5>
+			</div>
+			<div class="cart-btns">
+				<a asp-action="CheckoutPage" asp-controller="Home" style="width:100%">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+		</div>
+	</div>
+}
+<div class="menu-toggle">
+	<a href="#">
+		<i class="fa fa-bars"></i>
+		<span>Menu</span>
+	</a>
+</div>
+<script >
+	$('#deleteOrderItem').click(function () {
+		var orderItemId = $(this).data('orderitemid');
+		console.log(orderItemId)
+		$.ajax({
+			url: '/ShoppingCart/RemoveCartItem',
+			type: 'POST',
+
+			data: { orderItemId: orderItemId },
+			success: function (result) {
+			
+				$('.header-ctn').html(result);
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		});
+	});
+</script>
+<script>
+	$('#deleteWishList').click(function () {
+		var wishListId = $(this).data('wishlistid');
+		$.ajax({
+			url: '/WishList/RemoveWishList',
+			type: 'POST',
+			data: { wishListId: wishListId },
+			success: function (result) {
+
+				$('.header-ctn').html(result);
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		});
+	});
+</script>

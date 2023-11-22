@@ -1,0 +1,82 @@
+﻿@model She_He_Store.Models.Product
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Delete Product</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal" style="background:#191c24;">
+        <dt>
+            @Html.DisplayNameFor(model => model.Productname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Productname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Productprice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Productprice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Productpicture)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Productpicture)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Addingdate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Addingdate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Isavaliable)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Isavaliable)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Stockquantity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Stockquantity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Sale)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sale)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Category.Categoryid)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Productid" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

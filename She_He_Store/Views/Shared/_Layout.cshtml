@@ -1,0 +1,311 @@
+﻿@{
+	int? userId = Context.Items["UserId"] as int?;
+	string fname = Context.Items["Fname"] as string;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Electro - HTML Ecommerce Template</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="~/Assets/css/bootstrap.min.css" />
+
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="~/Assets/css/slick.css" />
+    <link type="text/css" rel="stylesheet" href="~/Assets/css/slick-theme.css" />
+
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" href="~/Assets/css/nouislider.min.css" />
+
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="~/Assets/css/font-awesome.min.css">
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="~/Assets/css/style.css" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+	<!-- HEADER -->
+	<header>
+		<!-- TOP HEADER -->
+		<div id="top-header">
+			<div class="container">
+				<ul class="header-links pull-left">
+					<li><a href="#"><i class="fa fa-phone"></i> +0790013290</a></li>
+					<li><a href="#"><i class="fa fa-envelope-o"></i> SheHeStore@gmail.com</a></li>
+					<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Amman Shmesani</a></li>
+				</ul>
+				<ul class="header-links pull-right">
+					
+@* 					<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
+ *@					@if (userId != 0 && userId != null)
+					{
+						<li><a asp-controller="Home" asp-action="EditProfile"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li><a asp-controller="LoginAndRegister" asp-action="Logout"><i class="fa-solid fa-right-from-bracket"></i>  Log out</a></li>
+
+						
+					}
+					else
+					{
+						<li><a asp-action="LoginAndRegisterPage" asp-controller="LoginAndRegister" ><i class="fa fa-user-o"></i> Log in</a></li>
+					}
+				</ul>
+			</div>
+		</div>
+		<!-- /TOP HEADER -->
+		<!-- MAIN HEADER -->
+		<div id="header">
+			
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<!-- LOGO -->
+					<div class="col-md-3">
+						<img src="~/Images/logo_transparent.png" style="width: 72%;height: 110px; object-fit:cover">
+					</div>
+					<!-- /LOGO -->
+					<!-- SEARCH BAR -->
+					<div class="col-md-5" style="  display: flex;
+                        justify-content: center;
+                       align-items: center;
+                       height: 100px;">
+						<div class="header-search">
+							<form action="@Url.Action("ProductsByCategory","Home")" method="post">
+								<select class="input-select" name="Category">
+									<option value="Laptops">Laptops</option>
+									<option value="Smartphones">SmartPhones</option>
+									<option value="Accsessories">Accsessories</option>
+									<option value="Games">Games</option>
+								</select>
+								<input class="input" placeholder="Search here" name="productName">
+								<button class="search-btn">Search</button>
+							</form>
+						</div>
+					</div>
+					<!-- /SEARCH BAR -->
+					<!-- ACCOUNT -->
+					<div class="col-md-4 clearfix">
+						@if (userId != 0 && userId != null)
+						{
+							<div class="header-ctn" style="    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;">
+							
+							</div>
+								}
+					</div>
+					<!-- /ACCOUNT -->
+				</div>
+				<!-- row -->
+			</div>
+			<!-- container -->
+		</div>
+		<!-- /MAIN HEADER -->
+	</header>
+	<!-- /HEADER -->
+	<!-- NAVIGATION -->
+	<nav id="navigation">
+		<!-- container -->
+		<div class="container">
+			<!-- responsive-nav -->
+			<div id="responsive-nav">
+				<!-- NAV -->
+				<ul class="main-nav nav navbar-nav">
+					<li class="active"><a asp-action="HomePage" asp-controller="Home">Home</a></li>
+					<li><a asp-action="ProductsByCategory" asp-controller="Home">Categories</a></li>
+					<li><a asp-action="AboutUs" asp-controller="Home">About us</a></li>
+					<li><a asp-action="ContactUs" asp-controller="Home">Contact Us</a></li>
+					<li><a asp-action="TestimonialPage" asp-controller="Home">Testimonial</a></li>
+				</ul>
+				<!-- /NAV -->
+			</div>
+			<!-- /responsive-nav -->
+		</div>
+		<!-- /container -->
+	</nav>
+	<!-- /NAVIGATION -->
+	<!-- BREADCRUMB -->
+	<main>
+		@RenderBody()
+	</main>
+	<!-- /BREADCRUMB -->
+	<!-- SECTION -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /SECTION -->
+	<!-- NEWSLETTER -->
+	<div id="newsletter" class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-12">
+					<div class="newsletter">
+						<p>Sign Up for the <strong>NEWSLETTER</strong></p>
+						<form>
+							<input class="input" type="email" placeholder="Enter Your Email">
+							<button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+						</form>
+						<ul class="newsletter-follow">
+							<li>
+								<a href="#"><i class="fa fa-facebook"></i></a>
+							</li>
+							<li>
+								<a href="#"><i class="fa fa-twitter"></i></a>
+							</li>
+							<li>
+								<a href="#"><i class="fa fa-instagram"></i></a>
+							</li>
+							<li>
+								<a href="#"><i class="fa fa-pinterest"></i></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /NEWSLETTER -->
+	<!-- FOOTER -->
+	<footer id="footer">
+		<!-- top footer -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-3 col-xs-6">
+						<div class="footer">
+							<h3 class="footer-title">About Us</h3>
+							<p>SheHe is an online store for selling elctronics and accsessories</p>
+							<ul class="footer-links">
+								<li><a href="#"><i class="fa fa-map-marker"></i>1734 Amman Shmesani</a></li>
+								<li><a href="#"><i class="fa fa-phone"></i>+0790013290</a></li>
+								<li><a href="#"><i class="fa fa-envelope-o"></i>SheHeStore@gmail.com</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="col-md-3 col-xs-6">
+						<div class="footer">
+							<h3 class="footer-title">Categories</h3>
+							<ul class="footer-links">
+								<li><a >Laptops</a></li>
+								<li><a href="#">Smartphones</a></li>
+								<li><a href="#">Accsessroies</a></li>
+								<li><a href="#">Games</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="clearfix visible-xs"></div>
+
+					<div class="col-md-3 col-xs-6">
+						<div class="footer">
+							<h3 class="footer-title">Information</h3>
+							<ul class="footer-links">
+								<li><a asp-action="AboutUs" asp-controller="Home">About Us</a></li>
+								<li><a a asp-action="ContactUS" asp-controller="Home">Contact Us</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+								<li><a href="#">Orders and Returns</a></li>
+								<li><a href="#">Terms & Conditions</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="col-md-3 col-xs-6">
+						<div class="footer">
+							<h3 class="footer-title">Service</h3>
+							<ul class="footer-links">
+								<li><a asp-action="EditProfile" asp-controller="Home">My Account</a></li>
+								<li><a >View Cart</a></li>
+								<li><a href="#">Wishlist</a></li>
+								<li><a href="#">Track My Order</a></li>
+								<li><a href="#">Help</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /top footer -->
+		<!-- bottom footer -->
+		<div id="bottom-footer" class="section">
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<ul class="footer-payments">
+							<li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+							<li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+							<li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+							<li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+							<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+							<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+						</ul>
+						<span class="copyright">
+							<a target="_blank" href="https://www.templateshub.net">Templates Hub</a>
+						</span>
+
+
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /bottom footer -->
+	</footer>
+	<!-- /FOOTER -->
+	<!-- jQuery Plugins -->
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- Include Bootstrap JavaScript (which relies on jQuery) -->
+	<script src="~/Assets/js/bootstrap.min.js"></script>
+
+	<!-- Include other JavaScript files -->
+	<script src="~/Assets/js/slick.min.js"></script>
+	<script src="~/Assets/js/nouislider.min.js"></script>
+	<script src="~/Assets/js/jquery.zoom.min.js"></script>
+	<script src="~/Assets/js/main.js"></script>
+	<script src="https://kit.fontawesome.com/788a2928ef.js" crossorigin="anonymous"></script>
+
+    <script defer>
+		$(document).ready(function () {
+			$('.header-ctn').load('/ShoppingCart/GetShoppingCart');
+		});
+	</script>
+
+
+</body>
+</html>

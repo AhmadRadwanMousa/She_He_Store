@@ -1,0 +1,65 @@
+﻿@model IEnumerable<She_He_Store.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Categories</h2>
+<p>
+    <a asp-action="Create">Create Category</a>
+</p>
+
+
+<div class="container-fluid">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Category Table</h4>
+                <p class="card-description">
+                  
+                </p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                   Category Name
+                                </th>
+                                <th class="text-center">
+                                  Category Picture
+                                </th>
+                                <th class="text-center">
+                                    Edit/Delete
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>
+                                            @Html.DisplayFor(modelItem => item.Categoryname)
+                                    </td>
+                                    <td  class="text-center">
+                                        <img src="~/Images/@item.Categorypicture" style="width:150px; height:140px; border-radius:1.5rem" class="img-fluid" />
+                                    </td>
+                                    <td class="text-center">
+                                        <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.Categoryid">Edit <i class="fa-regular fa-pen-to-square"></i></a> |
+                                        <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.Categoryid">Details <i class="fa-solid fa-circle-info"></i></a> |
+                                        <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Categoryid">Delete <i class="fa-solid fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Testimonial>
+@{
+    ViewData["Title"] = "Testimonails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Testimonails</h2>
+<div class="card">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Testimonal ID
+                            </th>
+                            <th>
+                                User Name
+                            </th>
+                            <th>
+                                Testimonal Comment
+                            </th>
+                            <th>
+                                Testimonal State
+                            </th>
+                            <th class="text-center">
+                                Accept/Reject
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tbody>
+                            @foreach(Testimonial testimonial in Model)
+                            {
+                            <tr>
+                                <td>@testimonial.Testimonialid</td>
+                                <td>@testimonial.Username</td>
+                                <td>@testimonial.Testimonialcomment</td>
+                                    @if (testimonial.Testimonialstate == "Accepted")
+                                    {
+                                    <td><h5 class="text-success ">@testimonial.Testimonialstate</h5></td>
+                                    }
+                                    else if (testimonial.Testimonialstate == "Rejected")
+                                    {
+                                    <td><h5 class="text-danger ">@testimonial.Testimonialstate</h5></td>
+                                    }
+                                    else
+                                    {
+                                    <td><h5 class="text-secondry ">@testimonial.Testimonialstate</h5></td>
+                                    }
+
+                                <td class="text-center">
+                                    <a asp-action="AcceptTestimonail" asp-controller="Admin" asp-route-testId="@testimonial.Testimonialid" class="btn btn-success">Accepted <i class="fa-regular fa-circle-check"></i></a> |
+                                    <a asp-action="RejectTestimonail" asp-controller="Admin" asp-route-testId="@testimonial.Testimonialid" class="btn btn-danger">Reject <i class="fa-regular fa-circle-xmark"></i></a> |
+                                </td>
+                           
+                            
+                            </tr>
+                            }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

@@ -1,0 +1,95 @@
+﻿@model Testimonial
+@{
+    ViewData["Title"] = "TestimonialPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="section" id="section">
+<div class="container-fluid">
+    <div class="row ">
+        <div class="col-md-12">
+				<div class="billing-details">
+					<div class="section-title">
+						<h3 class="title">Testimonials</h3>
+					</div>
+					<form class="form-conatiner" action="@Url.Action("AddTestimonial","ReviewsAndTestimonails")" method="post">
+					<div class="form-group" style="width:40%">
+                        <label asp-for="Username" style="padding-bottom:1rem" ></label>
+						<input class="input" asp-for="Username" placeholder="User Name" required>
+					</div>
+					<div class="form-group">
+						<label asp-for="Testimonialcomment" style="padding-bottom:1rem"/>
+                            <textarea class="input" asp-for="Testimonialcomment" style="width:60rem;height: 20rem;text-align:center;" placeholder="Testimonial Comment" required></textarea>
+					</div>
+                        <input type="hidden" value="Pending" asp-for="Testimonialstate"/>
+					<div >
+						<button class="primary-btn">Send<i class="fa-solid fa-paper-plane" style="padding-left:0.5rem;"></i></button>
+					</div>
+					</form>
+        </div>
+    </div>
+    </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Not signed in yet!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    You need to sign in first so you can buy the products you need on our website and add Reviews and testimonails.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a type="button" class="btn btn-danger" asp-action="LoginAndRegisterPage" asp-controller="LoginAndRegister">Sign in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="SuccessfullyModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Succesfully Added</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center" style="display:flex;flex-direction:column;justify-content:center;align-items:center;">
+                    <img src="~/Assets/img/icons8-success-400.png" width="150" height="150" />
+                    Your Testimonal has been sent succesfully, it will be reviewed by the owner of the website and accepted if possible.
+                    Thank you so much for your testimonail and i hope we have met your expections :D
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+@if (ViewBag.SignIn == "false")
+{
+    <text>
+        <script>
+            // Your JavaScript code here
+            setTimeout(function () {
+                $('#exampleModal').modal('show');
+            }, 200);
+        </script>
+    </text>
+
+}
+@if (ViewBag.AddedTestimonail == "true")
+{
+    <text>
+        <script>
+            // Your JavaScript code here
+            setTimeout(function () {
+                $('#SuccessfullyModel').modal('show');
+            }, 200);
+        </script>
+    </text>
+}

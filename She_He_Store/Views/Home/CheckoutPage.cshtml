@@ -1,0 +1,149 @@
+﻿@model OrderAndCardDetails
+@{
+    ViewData["Title"] = "CheckoutPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<form action="@Url.Action("AddOrder","Checkout")" method="post">
+			<div class="col-md-7">
+				<!-- Billing Details -->
+				<div class="billing-details">
+					<div class="section-title">
+						<h3 class="title">Card Information</h3>
+					</div>
+					<div class="form-group">
+						<input class="input text-center"  asp-for="@Model.card.Cardholdername" placeholder="CardHolderName"required />
+					</div>
+					<div class="form-group">
+							<input class="input text-center" placeholder="CardNumber" maxlength="19" oninput="FormatCardNumbers(this)" required />
+							<input type="hidden" asp-for="@Model.card.Cardnumber" id="hiddenCardNumber">
+
+						</div>
+					<div class="form-group">
+							<input class="input" asp-for="@Model.card.Cvv" placeholder="CVV" maxlength="3" required>
+					</div>
+					<div class="form-group">
+					<input class="input"  placeholder="ExpiryDate" maxlength="5" oninput="FormatExpiryDate(this)" required/>
+					<input type="hidden" asp-for="@Model.card.Expirtydate" id="hiddenExpiryDate">
+				</div>
+                    <input type="hidden" name="orderId" value="@ViewBag.orderId" />
+				</div>
+				
+				
+				<!-- Order notes -->
+				<div class="order-notes">
+					<textarea class="input" placeholder="Order Notes" asp-for="OrderNotes"></textarea>
+				</div>
+				<!-- /Order notes -->
+			</div>
+		
+			<!-- Order Details -->
+			<div class="col-md-5 order-details" style="margin-top:6rem">
+				<div class="section-title text-center">
+					<h3 class="title">Your Order</h3>
+				</div>
+				<div class="order-summary">
+					<div class="order-col">
+						<div><strong>PRODUCT</strong></div>
+						<div><strong>TOTAL</strong></div>
+					</div>
+					<div class="order-products">
+						@foreach(Orderitem orderitem in Model.orderItems)
+						{
+							<div class="order-col">
+								<div>@orderitem.Quantity x @orderitem.Product.Productname</div>
+								<div>$@orderitem.Totalprice</div>
+							</div>
+						}
+					</div>
+					<div class="order-col">
+						<div>Shiping</div>
+						<div><strong>FREE</strong></div>
+					</div>
+					<div class="order-col">
+						<div><strong>TOTAL</strong></div>
+						<div><strong class="order-total">$@ViewBag.total</strong></div>
+					</div>
+				</div>
+					<button class="primary-btn order-submit" style="width:100%">Place order <i class="fa-solid fa-truck fa-bounce"></i></button>
+			</div>
+			</form>
+			<!-- /Order Details -->
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+
+<div class="modal fade" id="NotEnoughBalance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Cannot complete payment!</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body text-center" style="display:flex;flex-direction:column;justify-content:center;align-items:center;">
+				<img src="~/Images/error.png" width="100" height="100" />
+				<h4 class="pt-3">Cannot complete this payment ,Make sure the the card has enough balance for this order .</h4>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="SuccessfullPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Cannot complete payment!</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body text-center" style="display:flex;flex-direction:column;justify-content:center;align-items:center;">
+				<img src="~/Images/icons8-success-160.png" width="100" height="100" />
+				<h4 class="pt-3">Your order has been placed successfully ,please check your orders for more details .</h4>
+			
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	function FormatCardNumbers(input) {
+		var value = input.value.replace(/\s/g, '');
+		var formattedValue = value.replace(/(\d{4})/g, '$1 ');
+		input.value = formattedValue;
+		document.getElementById('hiddenCardNumber').value = value;
+	}
+	function FormatExpiryDate(input) {
+		var value = input.value.replace(/\s/g, '');
+		var formattedValue = value.replace(/(\d{2})(\d{2})/, '$1/$2');
+		input.value = formattedValue;
+		document.getElementById('hiddenExpiryDate').value = value;
+	}
+</script>
+@if (ViewBag.NotSuccsesfullPayment == "true")
+{
+	<text>
+		<script>
+			// Your JavaScript code here
+			setTimeout(function () {
+				$('#NotEnoughBalance').modal('show');
+			}, 200);
+		</script>
+	</text>
+}
+

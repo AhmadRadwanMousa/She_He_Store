@@ -1,0 +1,54 @@
+﻿
+<div>
+    <div class="card text-center" style="width: 300px;">
+        <div class="card-header h5 text-white bg-primary">Password Reset <i class="fa-regular fa-circle-xmark ms-3" id="close-backdrop"></i></div>
+        <div class="card-body px-5">
+            <form method="post" style="padding:0px;" id="otpForm" >
+                <p class="card-text py-2">
+                    Check your email, we have send you an OTP of 4 digits.
+                </p>
+                <div class="form-outline">
+                    <input type="text" id="userOTP" class="form-control my-3" required />
+                    <label class="form-label" for="typeEmail">OTP of 4 digits :</label>
+                </div>
+                <button type="submit" class="btn btn-warning w-100">Check OTP</button>
+                <div class="d-flex justify-content-between mt-4">
+                    <a class="" href="#">Login</a>
+                    <a class="" href="#">Register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#otpForm').submit(function (e) {
+            var userOTP = $('#userOTP').val();
+            var serverOTP = '@ViewBag.OTP';
+
+            if (userOTP !== serverOTP) {
+                alert('Invalid OTP. Please try again.');
+                e.preventDefault();
+            } else {
+                $.ajax({
+                    url: '/LoginAndRegister/RenderNewPasswordPartial',
+                    type: 'GET',
+                    success: function (result) {
+                        document.getElementById("OTP-Container").style.display = "none";
+                        document.getElementById('forgetpassword-container').style.display = 'flex';
+                        document.getElementById('forgetpassword-container').style.justifyContent = 'center';
+                        document.getElementById('forgetpassword-container').style.alignItems = 'center';
+                        $('#forgetpassword-container').html(result);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+

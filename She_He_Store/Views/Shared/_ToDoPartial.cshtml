@@ -1,0 +1,117 @@
+﻿
+
+<style>
+    .completed-toDo {
+        text-decoration: line-through;
+        text-decoration-color: #0090e7;
+        color:white;
+        text-decoration-thickness:1.5px;
+    }
+</style>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">To do list</h4>
+        <div class="add-items d-flex">
+            <input type="text" id="ToDoDescription" class="form-control todo-list-input text-white" placeholder="enter task.." required >
+            <button class="add btn btn-primary todo-list-add-btn" type="submit" id="AddToDo">Add</button>
+        </div>
+     
+        <div class="list-wrapper">
+            @if (ViewBag.emptyToDo == true)
+            {
+                <div style="    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;">
+                   <h3 class="text-center ">No Tasks Yet !</h3>
+                </div>
+            }
+            else
+            {
+                <ul class="d-flex flex-column-reverse text-white todo-list todo-list-custom">
+                    @foreach (Todo todo in ViewBag.toDoList)
+                    {
+                        <li>
+                            <div class="form-check form-check-primary">
+                                <input class="checkbox" type="checkbox" data-todo-id="@todo.Todolistid" @if (todo.Todostatues == "Done")
+                                {
+                                    <text>checked</text>
+                                } />
+                                @if (todo.Todostatues == "Done")
+                                {
+                                    <span class="todo-description completed-toDo">@todo.Tododescription</span>
+                                }
+                                else
+                                {
+                                    <span class="todo-description">@todo.Tododescription</span>
+                                }
+                            </div>
+                            <i class="remove mdi mdi-close-box" id="DeleteToDo" data-todo-id="@todo.Todolistid"></i>
+                        </li>
+                    }
+
+                </ul>
+
+            }
+          
+        </div>
+    </div>
+</div>
+<script>
+    $('#AddToDo').click(function () {
+        var ToDoDescription = $("#ToDoDescription").val();
+        console.log(ToDoDescription)
+        $.ajax({
+            url: '/ToDo/AddToDo',
+            type: 'POST',
+            data: { ToDoDescription: ToDoDescription },
+            success: function (result) {
+                $('#ToDoListContainer').html(result);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+</script>
+<script>
+    $('#DeleteToDo').click(function () {
+        var toDoId = $("#DeleteToDo").data('todo-id')
+        console.log(toDoId)
+        $.ajax({
+            url: '/ToDo/DeleteToDo',
+            type: 'POST',
+            data: { toDoId: toDoId },
+            success: function (result) {
+                $('#ToDoListContainer').html(result);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+</script>
+<script>
+    $('.checkbox').change(function () {
+        var isChecked = $(this).prop('checked');
+        var todoId = $(this).data('todo-id');
+
+        var checkboxElement = $(this);
+        $.ajax({
+            url: '/ToDo/UpdateTodoState',
+            type: 'POST',
+            data: { todoId: todoId, isChecked: isChecked },
+            success: function (result) {
+                if (isChecked) {
+                    checkboxElement.siblings('.todo-description').addClass('completed-toDo');
+                } else {
+                    checkboxElement.siblings('.todo-description').removeClass('completed-toDo');
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+</script>

@@ -1,0 +1,305 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Dashboard</h2>
+<div class="row">
+
+    <div class="row">
+        <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="d-flex align-items-center align-self-start">
+                                <h3 class="mb-0">@ViewBag.numberOfUsers</h3>
+                                <p class="text-success ms-2 mb-0 font-weight-medium"></p>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="icon icon-box-warning ">
+                                <span class="mdi mdi-account-circle"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="text-muted font-weight-normal">Number Of Users</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="d-flex align-items-center align-self-start">
+                                <h3 class="mb-0">@ViewBag.numberOfOrders</h3>
+                                <p class="text-success ms-2 mb-0 font-weight-medium"></p>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="icon icon-box-info">
+                                <span class="mdi mdi-truck-delivery"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="text-muted font-weight-normal">Number of Orders</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="d-flex align-items-center align-self-start">
+                                <h3 class="mb-0">$@ViewBag.totalEarned</h3>
+                                <p class="text-danger ms-2 mb-0 font-weight-medium"></p>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="icon icon-box-primary">
+                                <span class="mdi mdi-cash-multiple"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="text-muted font-weight-normal">Total Earned</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="d-flex align-items-center align-self-start">
+                                <h3 class="mb-0">@ViewBag.numberOfProducts</h3>
+                                <p class="text-success ms-2 mb-0 font-weight-medium"></p>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="icon icon-box-warning ">
+                                <span class="mdi mdi-laptop-chromebook"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="text-muted font-weight-normal">Number Of Products</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="d-flex align-items-center align-self-start">
+                                <h3 class="mb-0">@ViewBag.numberOfCategories</h3>
+                                <p class="text-success ms-2 mb-0 font-weight-medium"></p>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="icon icon-box-success ">
+                                <span class="mdi mdi-lock-plus"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="text-muted font-weight-normal">Number Of Categories</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="d-flex align-items-center align-self-start">
+                                <h3 class="mb-0">@ViewBag.numberOfTestimonails</h3>
+                                <p class="text-success ms-2 mb-0 font-weight-medium"></p>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="icon icon-box-success ">
+                                <span class="mdi mdi-message-text"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="text-muted font-weight-normal">Number Of Testimonials</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="d-flex align-items-center align-self-start">
+                                <h3 class="mb-0">@ViewBag.numberOfReviews</h3>
+                                <p class="text-success ms-2 mb-0 font-weight-medium"></p>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="icon icon-box-success ">
+                                <span class="mdi mdi-human-greeting"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="text-muted font-weight-normal">Number Of Reviews</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="d-flex align-items-center align-self-start">
+                                <h3 class="mb-0">@ViewBag.numberOfCards</h3>
+                                <p class="text-success ms-2 mb-0 font-weight-medium"></p>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="icon icon-box-danger">
+                                <span class="mdi mdi-cards"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="text-muted font-weight-normal">Number Of Cards</h6>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Transaction History</h4>
+                    <canvas id="transaction-history" class="transaction-chart"></canvas>
+                    <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+                        <div class="text-md-center text-xl-left">
+                            <h6 class="mb-1">Laptops</h6>
+                            <p class="text-muted mb-0"></p>
+                        </div>
+                        <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                            <h6 class="font-weight-bold mb-0 text-end">@ViewBag.numberOfLaptops</h6>
+                        </div>
+                    </div>
+                    <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+                        <div class="text-md-center text-xl-left">
+                            <h6 class="mb-1">SmartPhone</h6>
+                            <p class="text-muted mb-0"></p>
+                        </div>
+                        <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                            <h6 class="font-weight-bold mb-0 text-end">@ViewBag.numberOfPhones</h6>
+                        </div>
+                    </div>
+                    <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+                        <div class="text-md-center text-xl-left">
+                            <h6 class="mb-1">Accsessories</h6>
+                            <p class="text-muted mb-0"></p>
+                        </div>
+                        <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                            <h6 class="font-weight-bold mb-0 text-end">@ViewBag.numberOfAccsessories</h6>
+                        </div>
+                    </div>
+                    <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+                        <div class="text-md-center text-xl-left">
+                            <h6 class="mb-1">Games</h6>
+                            <p class="text-muted mb-0"></p>
+                        </div>
+                        <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                            <h6 class="font-weight-bold mb-0 text-end">@ViewBag.numberOfGames</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 grid-margin stretch-card" id="ToDoListContainer">
+        </div>
+    </div>
+</div>
+
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Order Status</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="form-check form-check-muted m-0">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input">
+                                        </label>
+                                    </div>
+                                </th>
+                                <th> Client Name </th>
+                                <th> Order ID </th>
+                                <th> Order Cost </th>
+                                <th> Start Date </th>
+                                <th> Order Status </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Order order in ViewBag.orders)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="form-check form-check-muted m-0">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" class="form-check-input">
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <img src="~/Images/@order.User.Profilepicture" alt="image" />
+                                        <span class="ps-2">@order.User.Fname @(@order.User.Lname)</span>
+                                    </td>
+                                    <td> @order.Orderid</td>
+                                    <td> $@order.Totalamount </td>
+                                    <td> @order.Orderdate </td>
+                                    <td>
+                                        @if (order.Orderstatus == "Accepted")
+                                        {
+                                            <div class="badge badge-outline-success">@order.Orderstatus</div>
+                                        }
+                                        else if (order.Orderstatus == "Rejected")
+                                        {
+                                            <div class="badge badge-outline-danger">@order.Orderstatus</div>
+
+                                        }
+                                        else if (order.Orderstatus == "Shipped")
+                                        {
+                                            <div class="badge badge-outline-info">@order.Orderstatus</div>
+
+                                        }
+                                        else if (order.Orderstatus == "Delivered")
+                                        {
+                                            <div class="badge badge-outline-primary">@order.Orderstatus</div>
+
+                                        }
+                                        else if (order.Orderstatus == "Pending")
+                                        {
+                                            <div class="badge badge-outline-warning">@order.Orderstatus</div>
+
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script >
+    $(document).ready(function () {
+        $('#ToDoListContainer').load('/ToDo/GetToDos');
+    });
+</script>

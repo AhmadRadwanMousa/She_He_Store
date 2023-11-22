@@ -1,0 +1,262 @@
+﻿@model User
+<link href="~/LoginAndRegisterAssets/css/index.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<div class="container" id="container">
+    <div class="form-container sign-up-container" id="registerform">
+        <form method="post" action="@Url.Action("Register","LoginAndRegister")" enctype="multipart/form-data">
+            <h1>Create Account</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <input class="form-control" asp-for="Fname" placeholder="FirstName" />
+                    <span asp-validation-for="Fname"/>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" asp-for="Lname" placeholder="LastName" />
+                    <span asp-validation-for="Lname" />
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <input class="form-control" type="email"  title="Please enter a valid email address."  placeholder="Email" name="userName" required/>
+
+                 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input class="form-control" type="password" id="passwordInput" placeholder="Password" name="Password" required />
+                    <span id="passwordError" style="color: red;"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input class="form-control" asp-for="Phonenumber" placeholder="PhoneNumber" required/>
+                    <span asp-validation-for="Phonenumber" />
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <select class="form-control"asp-for="Gender" asp-items="ViewBag.Gender"required>
+
+                        <option selected disabled>Gender</option>
+                    </select>
+                    <span asp-validation-for="Gender" />
+
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" asp-for="Dateofbirth" required/>
+                    <span asp-validation-for="Dateofbirth" />
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input class="form-control" asp-for="Postalcode" placeholder="PostalCode"required />
+                    <span asp-validation-for="Postalcode" />
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <input class="form-control" asp-for="Country" placeholder="Country" required/>
+                    <span asp-validation-for="Country" />
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" asp-for="City" placeholder="City"required />
+                    <span asp-validation-for="City" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input class="form-control" asp-for="ImageFile" placeholder="Image"  required/>
+                    <span asp-validation-for="ImageFile" />
+                </div>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+ 
+    <div class="form-container sign-in-container">
+        <form action="Login" method="post">
+            <h1>Sign in</h1>
+            <div class="row">
+
+                <div class="col-md-12">
+                    <input placeholder="Email" name="userName" type="email" required />
+                </div>
+                <br />
+                <br />
+                <br />
+                <div class="col-md-12">   <input placeholder="Password" name="password" type="password"  required/></div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <button class="w-100 " style="background:#D10024;">Sign In</button>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+            <a class="btn btn-outline-dark w-25 text-center" id="resetPasswordLink">Reset password</a>
+            </div>
+          
+        </form>
+    </div>
+
+
+
+    <div id="backdrop" class="backdrop">
+        <div class="card text-center" style="width: 300px;">
+            <div class="card-header h5 text-white bg-primary">Password Reset <i class="fa-regular fa-circle-xmark ms-3" id="close-backdrop"></i></div>
+            <div class="card-body px-5">
+                <form  style="padding:0px;" method="post">
+                <p class="card-text py-2">
+                    Enter your email address and we'll send you an email with instructions to reset your password.
+                </p>
+                <div class="form-outline">
+                    <input type="email" name="userName" class="form-control my-3" id="email-check"/>
+                    <label class="form-label" for="typeEmail">Email input</label>
+                </div>
+                    <button type="submit" class="btn btn-primary w-100" id="fb-btn">Reset password</button>
+                <div class="d-flex justify-content-between mt-4">
+                    <a class="" href="#">Login</a>
+                    <a class="" href="#">Register</a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+ 
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <button class="ghost" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="OTP-Container">
+
+</div>
+<div id="forgetpassword-container">
+  
+</div>
+
+<div class="modal fade" id="ExistUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Email is already exist.</h5>
+            </div>
+            <div class="modal-body">
+                Email is already exist,please enter a new email.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="WrongCrendtials" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Wrong Credntials</h5>
+            </div>
+            <div class="modal-body">
+                Wrong Username or Password,Please try again.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js" integrity="sha512-0QDLUJ0ILnknsQdYYjG7v2j8wERkKufvjBNmng/EdR/s/SE7X8cQ9y0+wMzuQT0lfXQ/NhG+zhmHNOWTUS3kMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+@if (ViewBag.ExistUser == "true")
+{
+    <text>
+        <script>
+            // Your JavaScript code here
+            setTimeout(function () {
+                $('#ExistUser').modal('show');
+            }, 200);
+        </script>
+    </text>
+}
+@if (ViewBag.WrongCredentials == "true")
+{
+    <text>
+        <script>
+            // Your JavaScript code here
+            setTimeout(function () {
+                $('#WrongCrendtials').modal('show');
+            }, 200);
+        </script>
+    </text>
+}
+@if (ViewBag.NotExist == "true")
+{
+    <text>
+        <script>
+            alert("User is not exist");
+        </script>
+    </text>
+}
+<script>
+    $(document).ready(function () {
+        $('#fb-btn').click(function (event) {
+            event.preventDefault();
+            var userName = $('#email-check').val(); 
+            $.ajax({
+                url: '/LoginAndRegister/ForgetPassword',
+                type: 'POST', 
+                data: { userName: userName },
+               
+                success: function (result) {
+                    document.getElementById('backdrop').style.display = 'none';
+                    document.getElementById('OTP-Container').style.display = 'flex';
+                    document.getElementById('OTP-Container').style.justifyContent = 'center';
+                    document.getElementById('OTP-Container').style.alignItems = 'center';
+                    $('#OTP-Container').html(result);
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var passwordInput = document.getElementById("passwordInput");
+        var passwordError = document.getElementById("passwordError");
+        console.log (passwordInput)
+            passwordInput.addEventListener('input', function () {
+            var regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{10,}/;
+
+            if (!regex.test(passwordInput.value)) {
+                passwordError.textContent = "Password must be at least 10 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character.";
+            } else {
+                passwordError.textContent = "";
+            }
+        });
+    });
+</script>
+<script src="https://kit.fontawesome.com/788a2928ef.js" crossorigin="anonymous"></script>
+<script src="~/LoginAndRegisterAssets/js/index.js"></script>
